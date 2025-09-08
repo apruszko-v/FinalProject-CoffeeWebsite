@@ -1,8 +1,10 @@
-package pl.coderslab.finalprojectcoffeewebsite.model;
+package pl.coderslab.finalprojectcoffeewebsite.coffee;
 
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pl.coderslab.finalprojectcoffeewebsite.brewingmethod.BrewingMethod;
+import pl.coderslab.finalprojectcoffeewebsite.model.*;
 
 import java.util.Set;
 
@@ -35,6 +37,9 @@ public class Coffee {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "roast_level_id")
     private RoastLevel roastLevel;
+
+    @Column(name = "image_url")
+    private String imageUrl;
 
 
     @ManyToMany(fetch = FetchType.LAZY)

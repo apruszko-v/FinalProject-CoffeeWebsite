@@ -1,8 +1,9 @@
-package pl.coderslab.finalprojectcoffeewebsite.model;
+package pl.coderslab.finalprojectcoffeewebsite.user;
 
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pl.coderslab.finalprojectcoffeewebsite.coffee.Coffee;
 
 import java.util.Set;
 

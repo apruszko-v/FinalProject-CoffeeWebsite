@@ -1,4 +1,4 @@
-package pl.coderslab.finalprojectcoffeewebsite.model;
+package pl.coderslab.finalprojectcoffeewebsite.grinder;
 
 import jakarta.persistence.*;
 import lombok.Data;

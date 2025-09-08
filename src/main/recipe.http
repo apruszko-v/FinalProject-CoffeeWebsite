@@ -1,0 +1,23 @@
+### C
+POST http://localhost:8080/api/recipes
+Content-Type: application/json
+
+{"grindSetting": 58, "coffeeDoseGrams": 15, "waterVolumeMl": 220, "waterTemperatureCelsius": 98, "brewingTimeSeconds": 180, "notes": "Z tym przepisem wychodzi najlepsza kawa", "userId": 3, "coffeeId": 1, "grinderId": 1, "brewingMethodId": 1}
+
+### R - all recipes
+GET http://localhost:8080/api/recipes
+
+### R - single recipe by recipe id
+GET http://localhost:8080/api/recipes/1
+
+### R - all recipes for single coffee by coffee id
+GET http://localhost:8080/api/recipes/coffee/1
+
+### U
+PUT http://localhost:8080/api/recipes/3
+Content-Type: application/json
+
+{"grindSetting": 68, "coffeeDoseGrams": 23, "waterVolumeMl": 375, "waterTemperatureCelsius": 98, "brewingTimeSeconds": 180, "notes": "Z tym przepisem wychodzi najlepsza kawa"}
+
+### D
+DELETE http://localhost:8080/api/recipes/1

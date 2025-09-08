@@ -1,8 +1,12 @@
-package pl.coderslab.finalprojectcoffeewebsite.model;
+package pl.coderslab.finalprojectcoffeewebsite.brewrecipe;
 
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pl.coderslab.finalprojectcoffeewebsite.coffee.Coffee;
+import pl.coderslab.finalprojectcoffeewebsite.brewingmethod.BrewingMethod;
+import pl.coderslab.finalprojectcoffeewebsite.grinder.Grinder;
+import pl.coderslab.finalprojectcoffeewebsite.user.User;
 
 @Entity
 @Table(name = "brew_recipes")
@@ -16,7 +20,7 @@ public class BrewRecipe {
     @Column(name = "grind_setting")
     private Integer grindSetting;
 
-    @Column(name = "coffee_dose_grams", precision = 5, scale = 2)
+    @Column(name = "coffee_dose_grams")
     private double coffeeDoseGrams;
 
     @Column(name = "water_volume_ml")

@@ -1,0 +1,20 @@
+### C
+POST http://localhost:8080/api/reviews
+Content-Type: application/json
+
+{"userId": 2, "coffeeId": 2, "rating": 5, "comment": "Świetna!"}
+
+### R - single review
+GET http://localhost:8080/api/reviews/7
+
+### R - all reviews for single coffee
+GET http://localhost:8080/api/reviews/coffee/2
+
+### U
+PUT http://localhost:8080/api/reviews/10
+Content-Type: application/json
+
+{"rating": 4, "comment": "Dobra kawa, ale mogłaby być bardziej aromatyczna"}
+
+### D
+DELETE http://localhost:8080/api/reviews/10

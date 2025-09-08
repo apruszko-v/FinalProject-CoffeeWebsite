@@ -1,0 +1,2 @@
+### R - filter by coffe name and roastery name
+GET http://localhost:8080/api/discover?coffeeName=Ethiopia%20Guji&roasteryName=HAYB

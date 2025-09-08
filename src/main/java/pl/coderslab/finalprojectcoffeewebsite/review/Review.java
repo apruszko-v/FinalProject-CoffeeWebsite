@@ -1,8 +1,11 @@
-package pl.coderslab.finalprojectcoffeewebsite.model;
+package pl.coderslab.finalprojectcoffeewebsite.review;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pl.coderslab.finalprojectcoffeewebsite.coffee.Coffee;
+import pl.coderslab.finalprojectcoffeewebsite.user.User;
 
 import java.time.LocalDateTime;
 
@@ -20,6 +23,7 @@ public class Review {
 
     @Lob
     private String comment;
+
 
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt = LocalDateTime.now();

@@ -1,0 +1,19 @@
+### C
+POST http://localhost:8080/api/users/register
+Content-Type: application/json
+
+{"username": "userRRR", "email": "user@example.com", "password": "haslo123"}
+
+### R
+GET http://localhost:8080/api/users/id/4
+
+### U
+PUT http://localhost:8080/api/users/3
+Content-Type: application/json
+
+{"username": "user_nowy", "email": "usernowy@example.com", "password": "haslo1234"}
+
+### D
+DELETE http://localhost:8080/api/users/3
+
+
