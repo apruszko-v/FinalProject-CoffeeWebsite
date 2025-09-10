@@ -8,35 +8,48 @@ import java.util.List;
 @RequestMapping("/api/coffees")
 public class CoffeeController {
     private final CoffeeService coffeeService;
+
     public CoffeeController(CoffeeService coffeeService) {
         this.coffeeService = coffeeService;
     }
 
-//    all coffees
     @GetMapping
     public List<CoffeeDTO> getAllCoffees() {
         return coffeeService.getAllCoffees();
     }
 
-//    by roast level ?
-    @GetMapping("/roast-level/{roastLevel}")
-    public List<CoffeeDTO> getByRoastLevel(@PathVariable("roastLevel") String roastLevel) {
-        return coffeeService.findCoffeeByRoastLevel(roastLevel);
+    @GetMapping("/id/{coffeeId}")
+    public CoffeeDTO getCoffeeById(@PathVariable Long coffeeId) {
+        return coffeeService.getCoffeeById(coffeeId);
     }
 
-//    by flavour name ?
-    @GetMapping("/flavour-note/{flavourName}")
-    public List<CoffeeDTO> getByFlavourNote(@PathVariable("flavourName") String flavourName) {
-        return coffeeService.findCoffeeByFlavour(flavourName);
+    @GetMapping("/origins")
+    public List<String> getOrigins() {
+        return coffeeService.getAllOrigins();
     }
 
-//    filter coffees by origin, roastLevel, flavourNote, brewingMethod
+    @GetMapping("/brewing-methods")
+    public List<String> getBrewingMethods() {
+        return coffeeService.getAllBrewingMethods();
+    }
+
+    @GetMapping("/flavour-notes")
+    public List<String> getFlavourNotes() {
+        return coffeeService.getAllFlavourNotes();
+    }
+
+    @GetMapping("/roast-levels")
+    public List<String> getRoastLevels() {
+        return coffeeService.getAllRoastLevels();
+    }
+
+    //    filter coffees by origin, roastLevel, flavourNote, brewingMethod
     @GetMapping("/filter")
     public List<CoffeeDTO> getByFilter(
-            @RequestParam(required = false) String origin,
-            @RequestParam(required = false) String roastLevel,
-            @RequestParam(required = false) String flavourNote,
-            @RequestParam(required = false) String brewingMethod
+            @RequestParam(required = false) List<String> origin,
+            @RequestParam(required = false) List<String> roastLevel,
+            @RequestParam(required = false) List<String> flavourNote,
+            @RequestParam(required = false) List<String> brewingMethod
     ) {
         return coffeeService.filterCoffees(origin, roastLevel, flavourNote, brewingMethod);
     }

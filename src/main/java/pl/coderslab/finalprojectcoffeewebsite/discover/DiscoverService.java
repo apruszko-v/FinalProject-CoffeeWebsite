@@ -44,6 +44,7 @@ public class DiscoverService {
         dto.setRecommendedMethods(coffee.getRecommendedMethods().stream()
                 .map(BrewingMethod::getNameMethod).collect(Collectors.toSet()));
         dto.setImageUrl(coffee.getImageUrl());
+        dto.setRating(coffee.getRatingCoffee());
         dto.setBrewRecipes(recipes);
 
         return dto;

@@ -72,12 +72,19 @@ public class BrewRecipeService {
         brewRecipe.setNotes(brewRecipeDTO.getNotes());
 
         return convertToDTO(brewRecipeRepository.save(brewRecipe));
-
     }
 
 //    read all recipes
     public List<BrewRecipeDTO> getAllBrewRecipes() {
         return brewRecipeRepository.findAll()
+                .stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+
+//    read all recipes by user id
+    public List<BrewRecipeDTO> getAllBrewRecipesByUserId(Long userId) {
+        return brewRecipeRepository.findByUserId(userId)
                 .stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
@@ -119,5 +126,4 @@ public class BrewRecipeService {
         }
         brewRecipeRepository.deleteById(id);
     }
-
 }

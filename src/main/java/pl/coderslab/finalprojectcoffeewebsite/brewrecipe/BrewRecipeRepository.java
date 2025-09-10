@@ -9,6 +9,5 @@ import java.util.List;
 public interface BrewRecipeRepository extends JpaRepository<BrewRecipe, Long> {
     void deleteByUserId(Long userId);
     List<BrewRecipe> findByCoffeeId(Long coffeeId);
-
-
+    List<BrewRecipe> findByUserId(Long userId);
 }

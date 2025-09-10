@@ -16,6 +16,7 @@ public class BrewRecipeController {
         this.brewRecipeService = brewRecipeService;
     }
 
+// create recipe
     @PostMapping
     public ResponseEntity<BrewRecipeDTO> createBrewRecipe(@RequestBody BrewRecipeCreateDTO brewRecipeCreateDTO) {
         return ResponseEntity.ok(brewRecipeService.createBrewRecipe(brewRecipeCreateDTO));
@@ -25,6 +26,12 @@ public class BrewRecipeController {
     @GetMapping
     public ResponseEntity<List<BrewRecipeDTO>> getAllBrewRecipe() {
         return ResponseEntity.ok(brewRecipeService.getAllBrewRecipes());
+    }
+
+//    get all recipes by user id
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<BrewRecipeDTO>> getBrewRecipeByUserId(@PathVariable Long userId) {
+        return ResponseEntity.ok(brewRecipeService.getAllBrewRecipesByUserId(userId));
     }
 
 //    get single review by review id
@@ -46,6 +53,7 @@ public class BrewRecipeController {
         return ResponseEntity.ok(brewRecipeService.updateBrewRecipe(id, brewRecipeUpdateDTO));
     }
 
+//    delete
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteBrewRecipe(@PathVariable Long id) {
         brewRecipeService.deleteBrewRecipe(id);

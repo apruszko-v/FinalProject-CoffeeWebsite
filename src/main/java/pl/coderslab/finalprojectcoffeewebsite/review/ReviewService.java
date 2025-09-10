@@ -38,6 +38,7 @@ public class ReviewService {
     public ReviewDTO createReview(ReviewCreateDTO reviewCreateDTO) {
         User user = userRepository.findById(reviewCreateDTO.getUserId())
                 .orElseThrow(() -> new RuntimeException("User not found"));
+
         Coffee coffee = coffeeRepository.findById(reviewCreateDTO.getCoffeeId())
                 .orElseThrow(() -> new RuntimeException("Coffee not found"));
 
@@ -72,16 +73,24 @@ public class ReviewService {
         coffeeRepository.save(coffee);
     }
 
-    //    read - single review
+    //    read single review
     public ReviewDTO getReviewById(Long id) {
         Review review = reviewRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Review not found"));
         return convertToDTO(review);
     }
 
-//    read - all reviews for single coffee
+//    read all reviews for single coffee
     public List<ReviewDTO> getAllReviewsForCoffee(Long coffeeId) {
         return reviewRepository.findByCoffeeId(coffeeId)
+                .stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+
+//    read all reviews by user id
+    public List<ReviewDTO> getAllReviewsForUser(Long userId) {
+        return reviewRepository.findAllByUserId(userId)
                 .stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());

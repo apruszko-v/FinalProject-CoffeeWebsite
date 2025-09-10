@@ -14,14 +14,14 @@ public class UserController {
         this.userService = userService;
     }
 
-    //    create - register
+    //    create user
     @PostMapping("/register")
     public ResponseEntity<UserDTO> registerUser(@RequestBody UserRegisterDTO userRegisterDTO) {
         UserDTO userDTO = userService.registerUser(userRegisterDTO);
         return ResponseEntity.ok(userDTO);
     }
 
-    //    read
+    //    read user by user id
     @GetMapping("/id/{id}")
     public ResponseEntity<UserDTO> getUser(@PathVariable Long id) {
         UserDTO userDTO = userService.getUserById(id);

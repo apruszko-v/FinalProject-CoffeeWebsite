@@ -1,12 +1,26 @@
 ### R - all coffees
 GET http://localhost:8080/api/coffees
 
-### R - get coffee by roast level
-GET http://localhost:8080/api/coffees/roast-level/dark
-
-### R - get coffee by flavour name
-GET http://localhost:8080/api/coffees/flavour-note/Berry
-
-### R - get coffee by origin, roast level, flavour note, brewing method
+### R - get coffee by origin, roast level, flavour note, brewing method (po 1 wartości)
 GET http://localhost:8080/api/coffees/filter?origin=Ethiopia&roastLevel=light&flavourNote=Citrus&brewingMethod=V60
 
+### R - get coffee by multiple origins (LISTA) + multiple flavour notes
+GET http://localhost:8080/api/coffees/filter?origin=Ethiopia&origin=Kenya&flavourNote=Berry&flavourNote=Chocolate
+
+### R - get coffee by multiple parameters at once
+GET http://localhost:8080/api/coffees/filter?origin=Brazil&origin=Colombia&roastLevel=medium&flavourNote=Nutty&flavourNote=Citrus&brewingMethod=Aeropress&brewingMethod=French%20Press
+
+### R - get all origins (lista unikalnych originów)
+GET http://localhost:8080/api/coffees/origins
+
+### R - get coffee by coffeeId
+GET http://localhost:8080/api/coffees/id/1
+
+### R - get all brewing methods
+GET http://localhost:8080/api/coffees/brewing-methods
+
+### R - get all flavour notes
+GET http://localhost:8080/api/coffees/flavour-notes
+
+### R - get all roast levels
+GET http://localhost:8080/api/coffees/roast-levels

@@ -20,5 +20,6 @@ public class DiscoverCoffee {
     private Set<String> recommendedMethods;
     private String imageUrl;
     private List<BrewRecipeDTO> brewRecipes;
+    private Double rating;
 
 }

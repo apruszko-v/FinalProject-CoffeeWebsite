@@ -5,6 +5,8 @@ import pl.coderslab.finalprojectcoffeewebsite.brewingmethod.BrewingMethod;
 import pl.coderslab.finalprojectcoffeewebsite.model.FlavourNote;
 import pl.coderslab.finalprojectcoffeewebsite.review.Review;
 import pl.coderslab.finalprojectcoffeewebsite.review.ReviewRepository;
+import pl.coderslab.finalprojectcoffeewebsite.user.User;
+import pl.coderslab.finalprojectcoffeewebsite.user.UserDTO;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,7 +25,7 @@ public class CoffeeService {
         List<Review> reviews = reviewRepository.findByCoffeeId(coffee.getId());
 
         Double averageRating = null;
-        if(!reviews.isEmpty()) {
+        if (!reviews.isEmpty()) {
             averageRating = reviews.stream()
                     .mapToDouble(review -> Double.parseDouble(review.getRatingReview()))
                     .average()
@@ -36,6 +38,7 @@ public class CoffeeService {
                 .nameCoffee(coffee.getNameCoffee())
                 .description(coffee.getDescription())
                 .ratingCoffee(averageRating)
+                .imageUrl(coffee.getImageUrl())
                 .roastery(coffee.getRoastery() != null ? coffee.getRoastery().getNameRoastery() : null)
                 .origin(coffee.getOrigin() != null ? coffee.getOrigin().getCountryOrigin() : null)
                 .roastLevel(coffee.getRoastLevel() != null ? coffee.getRoastLevel().getNameLevel() : null)
@@ -52,7 +55,6 @@ public class CoffeeService {
                 .build();
     }
 
-//    method: all coffees
     public List<CoffeeDTO> getAllCoffees() {
         return coffeeRepository.findAll()
                 .stream()
@@ -60,29 +62,54 @@ public class CoffeeService {
                 .collect(Collectors.toList());
     }
 
-//    method: filter coffee by roast level ?
-    public List<CoffeeDTO> findCoffeeByRoastLevel(String roastLevel) {
-        return coffeeRepository.findByRoastLevel(roastLevel)
+    public CoffeeDTO getCoffeeById(Long id) {
+        Coffee coffee = coffeeRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        return convertToDTO(coffee);
+    }
+
+    public List<String> getAllOrigins() {
+        return coffeeRepository.findDistinctOrigins();
+    }
+
+    public List<String> getAllBrewingMethods() {
+        return coffeeRepository.findDistinctBrewingMethods();
+    }
+
+    public List<String> getAllFlavourNotes() {
+        return coffeeRepository.findDistinctFlavourNotes();
+    }
+
+    public List<String> getAllRoastLevels() {
+        return coffeeRepository.findDistinctRoastLevels();
+    }
+
+    public List<CoffeeDTO> filterCoffees(List<String> origins,
+                                         List<String> roastLevels,
+                                         List<String> flavourNotes,
+                                         List<String> brewingMethods) {
+
+        List<String> originsLower = toLowerList(origins);
+        List<String> roastLevelsLower = toLowerList(roastLevels);
+        List<String> flavourNotesLower = toLowerList(flavourNotes);
+        List<String> brewingMethodsLower = toLowerList(brewingMethods);
+
+        return coffeeRepository.filterCoffees(
+                        originsLower.isEmpty() ? null : originsLower,
+                        roastLevelsLower.isEmpty() ? null : roastLevelsLower,
+                        flavourNotesLower.isEmpty() ? null : flavourNotesLower,
+                        brewingMethodsLower.isEmpty() ? null : brewingMethodsLower
+                )
                 .stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
     }
 
-//    method: filter by flavour note ?
-    public List<CoffeeDTO> findCoffeeByFlavour(String flavourName) {
-        return coffeeRepository.findByNameFlavour(flavourName)
-                .stream()
-                .map(this::convertToDTO)
-                .collect(Collectors.toList());
+    private List<String> toLowerList(List<String> list) {
+        return list == null ? List.of() :
+                list.stream()
+                        .filter(s -> s != null && !s.isBlank())
+                        .map(String::toLowerCase)
+                        .toList();
     }
-
-//    method: filter coffees
-    public List<CoffeeDTO> filterCoffees(String origin, String roastLevel, String flavourNote, String brewingMethod) {
-        return coffeeRepository.filterCoffees(origin, roastLevel, flavourNote, brewingMethod)
-                .stream()
-                .map(this::convertToDTO)
-                .collect(Collectors.toList());
-    }
-
-
 }

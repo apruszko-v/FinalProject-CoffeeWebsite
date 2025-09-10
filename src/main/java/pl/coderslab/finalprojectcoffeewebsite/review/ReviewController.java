@@ -32,6 +32,12 @@ public class ReviewController {
         return ResponseEntity.ok(reviewService.getAllReviewsForCoffee(coffeeId));
     }
 
+//    read all reviews by user id
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<ReviewDTO>> getAllReviewsByUserId(@PathVariable Long userId) {
+        return ResponseEntity.ok(reviewService.getAllReviewsForUser(userId));
+    }
+
 //    update
     @PutMapping("/{id}")
     public ResponseEntity<ReviewDTO> updateReview(@PathVariable Long id, @RequestBody ReviewUpdateDTO reviewDTO) {

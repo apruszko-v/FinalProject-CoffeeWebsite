@@ -2,13 +2,17 @@
 POST http://localhost:8080/api/reviews
 Content-Type: application/json
 
-{"userId": 2, "coffeeId": 2, "rating": 5, "comment": "Świetna!"}
+{"userId": 11, "coffeeId": 2, "rating": 5, "comment": "Świetna!"}
 
 ### R - single review
 GET http://localhost:8080/api/reviews/7
 
+### R - all reviews for single user id
+GET http://localhost:8080/api/reviews/user/2
+
 ### R - all reviews for single coffee
 GET http://localhost:8080/api/reviews/coffee/2
+
 
 ### U
 PUT http://localhost:8080/api/reviews/10

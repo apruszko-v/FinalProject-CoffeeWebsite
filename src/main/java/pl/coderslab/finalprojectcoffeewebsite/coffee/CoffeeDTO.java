@@ -17,6 +17,7 @@ public class CoffeeDTO {
     private String roastery;
     private String origin;
     private String roastLevel;
+    private String imageUrl;
     private Set<String> flavourNotes;
     private Set<String> recommendedMethods;
 }

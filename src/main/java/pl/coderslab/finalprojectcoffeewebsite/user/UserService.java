@@ -27,11 +27,13 @@ public class UserService {
                 .email(user.getEmail())
                 .build();
     }
+
 //    create
     public UserDTO registerUser(UserRegisterDTO userRegisterDTO) {
         if(userRepository.existsByUsername(userRegisterDTO.getUsername())) {
             throw new RuntimeException("Username already exists");
         }
+
         if(userRepository.existsByEmail(userRegisterDTO.getEmail())) {
             throw new RuntimeException("Email already exists");
         }
