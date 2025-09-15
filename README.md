@@ -80,7 +80,6 @@ Projekt został wykonany w technologii **React.js** (frontend) oraz **Spring Boo
 - Node.js + npm/yarn
 
 ---
-![brew_journal_db.png](brew_journal_db.png)
 
 
 # ☕ Your Brew Journal
