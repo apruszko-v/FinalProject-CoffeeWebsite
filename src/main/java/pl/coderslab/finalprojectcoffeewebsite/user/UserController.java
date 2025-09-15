@@ -1,5 +1,6 @@
 package pl.coderslab.finalprojectcoffeewebsite.user;
 
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,7 +17,7 @@ public class UserController {
 
     //    create user
     @PostMapping("/register")
-    public ResponseEntity<UserDTO> registerUser(@RequestBody UserRegisterDTO userRegisterDTO) {
+    public ResponseEntity<UserDTO> registerUser(@Valid  @RequestBody UserRegisterDTO userRegisterDTO) {
         UserDTO userDTO = userService.registerUser(userRegisterDTO);
         return ResponseEntity.ok(userDTO);
     }
@@ -36,7 +37,7 @@ public class UserController {
 
     //    update
     @PutMapping("/{id}")
-    public ResponseEntity<UserDTO> updateUser(@PathVariable Long id, @RequestBody UserUpdateDTO userUpdateDTO) {
+    public ResponseEntity<UserDTO> updateUser(@PathVariable Long id,@Valid @RequestBody UserUpdateDTO userUpdateDTO) {
         UserDTO userDTO = userService.updateUser(id, userUpdateDTO);
         return ResponseEntity.ok(userDTO);
     }

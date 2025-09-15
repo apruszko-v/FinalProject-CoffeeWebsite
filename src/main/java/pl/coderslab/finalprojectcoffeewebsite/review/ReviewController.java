@@ -1,5 +1,6 @@
 package pl.coderslab.finalprojectcoffeewebsite.review;
 
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +17,7 @@ public class ReviewController {
 
 //    create
     @PostMapping
-    public ResponseEntity<ReviewDTO> addReview(@RequestBody ReviewCreateDTO reviewDTO) {
+    public ResponseEntity<ReviewDTO> addReview(@Valid @RequestBody ReviewCreateDTO reviewDTO) {
         return ResponseEntity.ok(reviewService.createReview(reviewDTO));
     }
 
@@ -40,7 +41,7 @@ public class ReviewController {
 
 //    update
     @PutMapping("/{id}")
-    public ResponseEntity<ReviewDTO> updateReview(@PathVariable Long id, @RequestBody ReviewUpdateDTO reviewDTO) {
+    public ResponseEntity<ReviewDTO> updateReview(@PathVariable Long id,@Valid @RequestBody ReviewUpdateDTO reviewDTO) {
         return ResponseEntity.ok(reviewService.updateReview(id, reviewDTO));
     }
 

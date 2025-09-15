@@ -1,5 +1,6 @@
 package pl.coderslab.finalprojectcoffeewebsite.brewrecipe;
 
+import jakarta.validation.Valid;
 import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +19,7 @@ public class BrewRecipeController {
 
 // create recipe
     @PostMapping
-    public ResponseEntity<BrewRecipeDTO> createBrewRecipe(@RequestBody BrewRecipeCreateDTO brewRecipeCreateDTO) {
+    public ResponseEntity<BrewRecipeDTO> createBrewRecipe(@Valid  @RequestBody BrewRecipeCreateDTO brewRecipeCreateDTO) {
         return ResponseEntity.ok(brewRecipeService.createBrewRecipe(brewRecipeCreateDTO));
     }
 
@@ -49,7 +50,7 @@ public class BrewRecipeController {
 //    update
     @PutMapping("/{id}")
     public ResponseEntity<BrewRecipeDTO> updateBrewRecipe(@PathVariable Long id,
-                                                      @RequestBody BrewRecipeUpdateDTO brewRecipeUpdateDTO) {
+                                                          @Valid @RequestBody BrewRecipeUpdateDTO brewRecipeUpdateDTO) {
         return ResponseEntity.ok(brewRecipeService.updateBrewRecipe(id, brewRecipeUpdateDTO));
     }
 

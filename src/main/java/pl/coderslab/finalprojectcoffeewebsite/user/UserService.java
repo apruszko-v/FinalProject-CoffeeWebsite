@@ -31,11 +31,10 @@ public class UserService {
 //    create
     public UserDTO registerUser(UserRegisterDTO userRegisterDTO) {
         if(userRepository.existsByUsername(userRegisterDTO.getUsername())) {
-            throw new RuntimeException("Username already exists");
+            throw new IllegalArgumentException("Username already exists");
         }
-
         if(userRepository.existsByEmail(userRegisterDTO.getEmail())) {
-            throw new RuntimeException("Email already exists");
+            throw new IllegalArgumentException("Email already exists");
         }
 
         User user = new User();
@@ -93,7 +92,4 @@ public class UserService {
 
         userRepository.delete(user);
     }
-
-
-
 }
