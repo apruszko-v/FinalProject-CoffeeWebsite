@@ -34,7 +34,7 @@ public class UserService {
             throw new IllegalArgumentException("Username already exists");
         }
         if(userRepository.existsByEmail(userRegisterDTO.getEmail())) {
-            throw new IllegalArgumentException("Email already exists");
+            throw new RuntimeException("Email already exists");
         }
 
         User user = new User();
@@ -66,13 +66,27 @@ public class UserService {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        if(userUpdateDTO.getUsername() != null) {
+        // 🔹 Sprawdzenie unikalności username
+        if (userUpdateDTO.getUsername() != null
+                && !userUpdateDTO.getUsername().equals(user.getUsername())
+                && userRepository.existsByUsername(userUpdateDTO.getUsername())) {
+            throw new IllegalArgumentException("Username already exists");
+        }
+
+        // 🔹 Sprawdzenie unikalności emaila
+        if (userUpdateDTO.getEmail() != null
+                && !userUpdateDTO.getEmail().equals(user.getEmail())
+                && userRepository.existsByEmail(userUpdateDTO.getEmail())) {
+            throw new IllegalArgumentException("Email already exists");
+        }
+
+        if (userUpdateDTO.getUsername() != null) {
             user.setUsername(userUpdateDTO.getUsername());
         }
-        if(userUpdateDTO.getEmail() != null) {
+        if (userUpdateDTO.getEmail() != null) {
             user.setEmail(userUpdateDTO.getEmail());
         }
-        if(userUpdateDTO.getPassword() != null) {
+        if (userUpdateDTO.getPassword() != null) {
             user.setPassword(passwordEncoder.encode(userUpdateDTO.getPassword()));
         }
 
@@ -87,7 +101,6 @@ public class UserService {
                 .orElseThrow(() -> new RuntimeException("User not found"));
         reviewRepository.deleteByUserId(id);
         brewRecipeRepository.deleteByUserId(id);
-        user.getFavoriteCoffees().clear();
         userRepository.save(user);
 
         userRepository.delete(user);

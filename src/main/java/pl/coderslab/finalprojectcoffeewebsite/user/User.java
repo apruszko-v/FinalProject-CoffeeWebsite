@@ -25,13 +25,4 @@ public class User {
     @Column(nullable = false,unique = true)
     private String email;
 
-
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "user_favorite_coffees",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "coffee_id")
-    )
-    private Set<Coffee> favoriteCoffees;
-
 }

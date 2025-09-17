@@ -1,5 +1,6 @@
 package pl.coderslab.finalprojectcoffeewebsite;
 
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -23,19 +24,21 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/users/register").permitAll()
-                        .requestMatchers("/api/users/login").permitAll()
+                        .requestMatchers("/login").permitAll()
                         .requestMatchers("/api/users/me").authenticated()
                         .anyRequest().permitAll()
                 )
                 .formLogin(form -> form
-                        .loginProcessingUrl("/api/users/login")
+                        .loginProcessingUrl("/login")
                         .usernameParameter("username")
                         .passwordParameter("password")
                         .successHandler((request, response, authentication) -> {
                             response.setStatus(200);
                         })
                         .failureHandler((request, response, exception) -> {
-                            response.setStatus(401);
+                            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                            response.setContentType("application/json");
+                            response.getWriter().write("{\"error\": \"Login or password not correct\"}");
                         })
                         .permitAll()
                 )
